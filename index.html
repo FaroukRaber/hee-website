@@ -24,7 +24,7 @@
         body { font-family: 'Inter', sans-serif; }
         body[dir="rtl"] { font-family: 'Cairo', sans-serif; }
         
-        /* عزل الصفحات بشكل صارم ونهائي */
+        /* عزل الصفحات بشكل صارم ونهائي لمنع أي تداخل */
         .page-pane {
             display: none !important;
         }
@@ -227,12 +227,10 @@
     <!-- JavaScript Engine for Isolated Pages & Translation -->
     <script>
         function switchPage(pageId) {
-            // إخفاء كل الصفحات فوراً
             document.querySelectorAll('.page-pane').forEach(pane => {
                 pane.classList.remove('active-pane');
             });
-            // إظهار الصفحة المطلوبة وحدها
-            const target = document.getElementById('pane--' + pageId) || document.getElementById('pane-' + pageId);
+            const target = document.getElementById('pane-' + pageId);
             if (target) {
                 target.classList.add('active-pane');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
