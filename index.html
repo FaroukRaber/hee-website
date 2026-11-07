@@ -24,11 +24,11 @@
         body { font-family: 'Inter', sans-serif; }
         body[dir="rtl"] { font-family: 'Cairo', sans-serif; }
         
-        /* عزل تام وصارم بين الصفحات والأقسام */
-        .page-pane {
+        /* نظام عزل الصفحات الجديد كلياً لمنع التداخل */
+        .hee-page {
             display: none !important;
         }
-        .page-pane.active-pane {
+        .hee-page.hee-active {
             display: block !important;
         }
     </style>
@@ -50,11 +50,11 @@
 
                 <!-- Navigation Links -->
                 <nav class="flex flex-wrap items-center gap-1 md:gap-6 text-xs md:text-sm font-medium">
-                    <button onclick="switchPage('home')" class="nav-home hover:text-heeOrange transition px-2 py-1 cursor-pointer">Accueil</button>
-                    <button onclick="switchPage('about')" class="nav-about hover:text-heeOrange transition px-2 py-1 cursor-pointer">À propos</button>
-                    <button onclick="switchPage('services')" class="nav-services hover:text-heeOrange transition px-2 py-1 cursor-pointer">Services</button>
-                    <button onclick="switchPage('products')" class="nav-products hover:text-heeOrange transition px-2 py-1 cursor-pointer">Produits</button>
-                    <button onclick="switchPage('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1 cursor-pointer">Contact</button>
+                    <button onclick="goToPage('home')" class="nav-home hover:text-heeOrange transition px-2 py-1 cursor-pointer">Accueil</button>
+                    <button onclick="goToPage('about')" class="nav-about hover:text-heeOrange transition px-2 py-1 cursor-pointer">À propos</button>
+                    <button onclick="goToPage('services')" class="nav-services hover:text-heeOrange transition px-2 py-1 cursor-pointer">Services</button>
+                    <button onclick="goToPage('products')" class="nav-products hover:text-heeOrange transition px-2 py-1 cursor-pointer">Produits</button>
+                    <button onclick="goToPage('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1 cursor-pointer">Contact</button>
                 </nav>
 
                 <!-- Language Selector -->
@@ -67,24 +67,24 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
+    <!-- MAIN CONTENT CONTAINER (الصفحات المعزولة تماماً بمعرفات جديدة كلياً) -->
     <main class="min-h-[75vh]">
 
         <!-- 1. PAGE ACCUEIL -->
-        <section id="pane-home" class="page-pane active-pane relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
+        <section id="tab-home" class="hee-page hee-active relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#174B73_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="hero-title text-3xl md:text-6xl font-extrabold mb-6 leading-tight">L'Excellence dans le Béton et le Génie Civil</h1>
                 <p class="hero-desc text-base md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10">Solutions innovantes, durables et de haute qualité pour tous vos projets de construction et d'aménagement en Algérie.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="switchPage('contact')" class="hero-btn-contact bg-heeOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Contactez-nous</button>
-                    <button onclick="switchPage('services')" class="hero-btn-services bg-heeBlue hover:bg-blue-800 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Découvrir nos Services</button>
+                    <button onclick="goToPage('contact')" class="hero-btn-contact bg-heeOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Contactez-nous</button>
+                    <button onclick="goToPage('services')" class="hero-btn-services bg-heeBlue hover:bg-blue-800 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Découvrir nos Services</button>
                 </div>
             </div>
         </section>
 
         <!-- 2. PAGE À PROPOS -->
-        <section id="pane-about" class="page-pane py-20 bg-white">
+        <section id="tab-about" class="hee-page py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="about-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">À Propos de HEE</h2>
@@ -118,7 +118,7 @@
         </section>
 
         <!-- 3. PAGE SERVICES (الخرسانة أولاً ثم الهوردي) -->
-        <section id="pane-services" class="page-pane py-20 bg-gray-100">
+        <section id="tab-services" class="hee-page py-20 bg-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="services-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">Nos Services</h2>
@@ -154,7 +154,7 @@
         </section>
 
         <!-- 4. PAGE PRODUITS (الخرسانة أولاً ثم الهوردي) -->
-        <section id="pane-products" class="page-pane py-20 bg-white">
+        <section id="tab-products" class="hee-page py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="products-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">Nos Produits</h2>
@@ -190,7 +190,7 @@
         </section>
 
         <!-- 5. PAGE CONTACT -->
-        <section id="pane-contact" class="page-pane py-20 bg-heeDark text-white">
+        <section id="tab-contact" class="hee-page py-20 bg-heeDark text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="contact-heading text-3xl md:text-4xl font-bold mb-4">Contactez-Nous</h2>
@@ -226,15 +226,15 @@
 
     <!-- JavaScript Engine for Isolated Pages & Translation -->
     <script>
-        function switchPage(pageId) {
-            // إخفاء كل الـ Panes تماماً
-            document.querySelectorAll('.page-pane').forEach(pane => {
-                pane.classList.remove('active-pane');
+        function goToPage(pageId) {
+            // إخفاء كل الصفحات تماماً
+            document.querySelectorAll('.hee-page').forEach(page => {
+                page.classList.remove('hee-active');
             });
-            // إظهار الـ Pane المطلوب وحدها
-            const target = document.getElementById('pane-' + pageId);
-            if (target) {
-                target.classList.add('active-pane');
+            // إظهار الصفحة المستهدفة وحدها
+            const activeTarget = document.getElementById('tab-' + pageId);
+            if (activeTarget) {
+                activeTarget.classList.add('hee-active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
