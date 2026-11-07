@@ -24,11 +24,11 @@
         body { font-family: 'Inter', sans-serif; }
         body[dir="rtl"] { font-family: 'Cairo', sans-serif; }
         
-        /* عزل الصفحات التام والقطعي لمنع أي تداخل بين الأقسام */
-        .hee-view {
+        /* عزل الصفحات بشكل قطعي ونهائي لمنع أي تداخل */
+        .hee-page-section {
             display: none !important;
         }
-        .hee-view.hee-view-active {
+        .hee-page-section.hee-active-section {
             display: block !important;
         }
     </style>
@@ -48,13 +48,13 @@
                     </div>
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Navigation Links (تستخدم نظام التنقل النظيف دون روابط هاش تسبب مشاكل) -->
                 <nav class="flex flex-wrap items-center gap-1 md:gap-6 text-xs md:text-sm font-medium">
-                    <button onclick="renderView('home')" class="nav-home hover:text-heeOrange transition px-2 py-1 cursor-pointer">Accueil</button>
-                    <button onclick="renderView('about')" class="nav-about hover:text-heeOrange transition px-2 py-1 cursor-pointer">À propos</button>
-                    <button onclick="renderView('services')" class="nav-services hover:text-heeOrange transition px-2 py-1 cursor-pointer">Services</button>
-                    <button onclick="renderView('products')" class="nav-products hover:text-heeOrange transition px-2 py-1 cursor-pointer">Produits</button>
-                    <button onclick="renderView('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1 cursor-pointer">Contact</button>
+                    <button onclick="navigateTo('home')" class="nav-home hover:text-heeOrange transition px-2 py-1 cursor-pointer">Accueil</button>
+                    <button onclick="navigateTo('about')" class="nav-about hover:text-heeOrange transition px-2 py-1 cursor-pointer">À propos</button>
+                    <button onclick="navigateTo('services')" class="nav-services hover:text-heeOrange transition px-2 py-1 cursor-pointer">Services</button>
+                    <button onclick="navigateTo('products')" class="nav-products hover:text-heeOrange transition px-2 py-1 cursor-pointer">Produits</button>
+                    <button onclick="navigateTo('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1 cursor-pointer">Contact</button>
                 </nav>
 
                 <!-- Language Selector -->
@@ -70,21 +70,21 @@
     <!-- MAIN CONTENT CONTAINER -->
     <main class="min-h-[75vh]">
 
-        <!-- 1. ACCUEIL VIEW -->
-        <section id="view-home" class="hee-view hee-view-active relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
+        <!-- 1. ACCUEIL SECTION -->
+        <section id="section-home" class="hee-page-section hee-active-section relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#174B73_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="hero-title text-3xl md:text-6xl font-extrabold mb-6 leading-tight">L'Excellence dans le Béton et le Génie Civil</h1>
                 <p class="hero-desc text-base md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10">Solutions innovantes, durables et de haute qualité pour tous vos projets de construction et d'aménagement en Algérie.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="renderView('contact')" class="hero-btn-contact bg-heeOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Contactez-nous</button>
-                    <button onclick="renderView('services')" class="hero-btn-services bg-heeBlue hover:bg-blue-800 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Découvrir nos Services</button>
+                    <button onclick="navigateTo('contact')" class="hero-btn-contact bg-heeOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Contactez-nous</button>
+                    <button onclick="navigateTo('services')" class="hero-btn-services bg-heeBlue hover:bg-blue-800 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Découvrir nos Services</button>
                 </div>
             </div>
         </section>
 
-        <!-- 2. ABOUT VIEW -->
-        <section id="view-about" class="hee-view py-20 bg-white">
+        <!-- 2. ABOUT SECTION -->
+        <section id="section-about" class="hee-page-section py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="about-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">À Propos de HEE</h2>
@@ -117,15 +117,15 @@
             </div>
         </section>
 
-        <!-- 3. SERVICES VIEW -->
-        <section id="view-services" class="hee-view py-20 bg-gray-100">
+        <!-- 3. SERVICES SECTION (الخرسانة أولاً ثم الهوردي) -->
+        <section id="section-services" class="hee-page-section py-20 bg-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="services-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">Nos Services</h2>
                     <div class="w-24 h-1 bg-heeOrange mx-auto"></div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Service 1 -->
+                    <!-- Service 1: Béton prêt à l'emploi -->
                     <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden border-t-4 border-heeOrange">
                         <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f7?auto=format&fit=crop&w=600&q=80" alt="Béton prêt à l'emploi" class="w-full h-48 object-cover">
                         <div class="p-6">
@@ -133,7 +133,7 @@
                             <p class="serv-1-desc text-gray-600">Fourniture et pompage de béton prêt à l'emploi (BPE) hautement dosé et certifié pour tous types de fondations et dalles.</p>
                         </div>
                     </div>
-                    <!-- Service 2 -->
+                    <!-- Service 2: Fabrication de l'hourdis et parpaing -->
                     <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden border-t-4 border-heeBlue">
                         <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=600&q=80" alt="Fabrication de l'hourdis et parpaing" class="w-full h-48 object-cover">
                         <div class="p-6">
@@ -141,7 +141,7 @@
                             <p class="serv-2-desc text-gray-600">Production industrielle automatisée d'hourdis et de parpaings garantissant une résistance mécanique maximale.</p>
                         </div>
                     </div>
-                    <!-- Service 3 -->
+                    <!-- Service 3: Génie Civil & Ouvrages -->
                     <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden border-t-4 border-heeOrange">
                         <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80" alt="Génie Civil & Ouvrages" class="w-full h-48 object-cover">
                         <div class="p-6">
@@ -153,15 +153,15 @@
             </div>
         </section>
 
-        <!-- 4. PRODUCTS VIEW -->
-        <section id="view-products" class="hee-view py-20 bg-white">
+        <!-- 4. PRODUCTS SECTION (الخرسانة أولاً ثم الهوردي) -->
+        <section id="section-products" class="hee-page-section py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="products-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">Nos Produits</h2>
                     <div class="w-24 h-1 bg-heeOrange mx-auto"></div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Product 1 -->
+                    <!-- Product 1: Béton prêt à l'emploi -->
                     <div class="bg-gray-50 rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                         <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f7?auto=format&fit=crop&w=600&q=80" alt="Béton prêt à l'emploi" class="w-full h-48 object-cover">
                         <div class="p-6">
@@ -169,7 +169,7 @@
                             <p class="prod-1-desc text-gray-600">Béton certifié livré directement sur vos chantiers pour une performance optimale.</p>
                         </div>
                     </div>
-                    <!-- Product 2 -->
+                    <!-- Product 2: Fabrication de l'hourdis et parpaing -->
                     <div class="bg-gray-50 rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                         <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=600&q=80" alt="Fabrication de l'hourdis et parpaing" class="w-full h-48 object-cover">
                         <div class="p-6">
@@ -177,7 +177,7 @@
                             <p class="prod-2-desc text-gray-600">Idéal pour les planchers corps creux, garantissant isolation et solidité.</p>
                         </div>
                     </div>
-                    <!-- Product 3 -->
+                    <!-- Product 3: Parpaings et Blocs de Construction -->
                     <div class="bg-gray-50 rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                         <img src="https://images.unsplash.com/photo-1517646456090-25bc5e56e401?auto=format&fit=crop&w=600&q=80" alt="Parpaings et Blocs de Construction" class="w-full h-48 object-cover">
                         <div class="p-6">
@@ -189,8 +189,8 @@
             </div>
         </section>
 
-        <!-- 5. CONTACT VIEW -->
-        <section id="view-contact" class="hee-view py-20 bg-heeDark text-white">
+        <!-- 5. CONTACT SECTION -->
+        <section id="section-contact" class="hee-page-section py-20 bg-heeDark text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="contact-heading text-3xl md:text-4xl font-bold mb-4">Contactez-Nous</h2>
@@ -226,15 +226,15 @@
 
     <!-- JavaScript Controller -->
     <script>
-        function renderView(viewKey) {
-            // إخفاء جميع الحاويات تماماً بدون استثناء
-            document.querySelectorAll('.hee-view').forEach(v => {
-                v.classList.remove('hee-view-active');
+        function navigateTo(sectionId) {
+            // إخفاء جميع الأقسام تماماً
+            document.querySelectorAll('.hee-page-section').forEach(sec => {
+                sec.classList.remove('hee-active-section');
             });
-            // إظهار الحاوية المطلوبة وحدها
-            const targetView = document.getElementById('view-' + viewKey);
-            if (targetView) {
-                targetView.classList.add('hee-view-active');
+            // إظهار القسم المطلوب فقط دون غيره
+            const activeSec = document.getElementById('section-' + sectionId);
+            if (activeSec) {
+                activeSec.classList.add('hee-active-section');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
@@ -337,7 +337,7 @@
                 "about-li-3": "Strict adherence to deadlines and environmental standards",
                 "about-stat-1": "Years of Experience",
                 "about-stat-2": "Completed Projects",
-                "services-heading": "Our Services",
+                "services-heading": "Nos Services",
                 "serv-1-title": "Béton prêt à l'emploi",
                 "serv-1-desc": "Supply and pumping of high-quality ready-mix concrete for all types of foundations and slabs.",
                 "serv-2-title": "Fabrication de l'hourdis et parpaing",
