@@ -23,8 +23,9 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         body[dir="rtl"] { font-family: 'Cairo', sans-serif; }
-        .page-section { display: none; }
-        .page-section.active { display: block; }
+        /* نظام عزل الصفحات الاحترافي */
+        .page-section { display: none !important; }
+        .page-section.active-page { display: block !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -44,11 +45,11 @@
 
                 <!-- Navigation Links -->
                 <nav class="flex flex-wrap items-center gap-1 md:gap-6 text-xs md:text-sm font-medium">
-                    <button onclick="showPage('home')" class="nav-home hover:text-heeOrange transition px-2 py-1">Accueil</button>
-                    <button onclick="showPage('about')" class="nav-about hover:text-heeOrange transition px-2 py-1">À propos</button>
-                    <button onclick="showPage('services')" class="nav-services hover:text-heeOrange transition px-2 py-1">Services</button>
-                    <button onclick="showPage('products')" class="nav-products hover:text-heeOrange transition px-2 py-1">Produits</button>
-                    <button onclick="showPage('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1">Contact</button>
+                    <button onclick="showPage('home')" class="nav-home hover:text-heeOrange transition px-2 py-1 cursor-pointer">Accueil</button>
+                    <button onclick="showPage('about')" class="nav-about hover:text-heeOrange transition px-2 py-1 cursor-pointer">À propos</button>
+                    <button onclick="showPage('services')" class="nav-services hover:text-heeOrange transition px-2 py-1 cursor-pointer">Services</button>
+                    <button onclick="showPage('products')" class="nav-products hover:text-heeOrange transition px-2 py-1 cursor-pointer">Produits</button>
+                    <button onclick="showPage('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1 cursor-pointer">Contact</button>
                 </nav>
 
                 <!-- Language Selector -->
@@ -61,11 +62,11 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER (عزل الصفحات تماًاماً) -->
+    <!-- MAIN CONTENT CONTAINER (عزل تام بين الصفحات) -->
     <main class="min-h-[75vh]">
 
         <!-- 1. ACCUEIL PAGE -->
-        <section id="page-home" class="page-section active relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
+        <section id="page-home" class="page-section active-page relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#174B73_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="hero-title text-3xl md:text-6xl font-extrabold mb-6 leading-tight">L'Excellence dans le Béton et le Génie Civil</h1>
@@ -218,15 +219,17 @@
         <p>&copy; 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés.</p>
     </footer>
 
-    <!-- JavaScript for Dynamic Pages and Translation -->
+    <!-- JavaScript for Page Switching & Translation -->
     <script>
         function showPage(pageId) {
+            // إخفاء كل الصفحات تماماً
             document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
+                section.classList.remove('active-page');
             });
+            // إظهار الصفحة المستهدفة وحدها
             const target = document.getElementById('page-' + pageId);
             if (target) {
-                target.classList.add('active');
+                target.classList.add('active-page');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
