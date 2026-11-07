@@ -42,6 +42,7 @@
 
                 <!-- Navigation Links -->
                 <nav class="hidden md:flex space-x-6 items-center rtl:space-x-reverse">
+                    <a href="#home" class="nav-home hover:text-heeOrange transition">Accueil</a>
                     <a href="#about" class="nav-about hover:text-heeOrange transition">À propos</a>
                     <a href="#services" class="nav-services hover:text-heeOrange transition">Services</a>
                     <a href="#products" class="nav-products hover:text-heeOrange transition">Produits</a>
@@ -61,7 +62,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-heeDark text-white py-24 overflow-hidden">
+    <section id="home" class="relative bg-heeDark text-white py-24 overflow-hidden">
         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#174B73_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 class="hero-title text-4xl md:text-6xl font-extrabold mb-6">L'Excellence dans le Béton et le Génie Civil</h1>
@@ -227,6 +228,7 @@
         const translations = {
             fr: {
                 dir: "ltr",
+                "nav-home": "Accueil",
                 "nav-about": "À propos",
                 "nav-services": "Services",
                 "nav-products": "Produits",
@@ -268,6 +270,7 @@
             },
             ar: {
                 dir: "rtl",
+                "nav-home": "الرئيسية",
                 "nav-about": "من نحن",
                 "nav-services": "الخدمات",
                 "nav-products": "المنتجات",
@@ -309,6 +312,7 @@
             },
             en: {
                 dir: "ltr",
+                "nav-home": "Home",
                 "nav-about": "About Us",
                 "nav-services": "Services",
                 "nav-products": "Products",
