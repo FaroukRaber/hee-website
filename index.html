@@ -1,5 +1,3 @@
-أهلاً بك يا فاروق. لقد قمت بمراجعة وتحديث الكود البرمجي بالكامل ليكون جاهزاً 100%، مستقراً، وخالياً تماماً من أي أخطاء أو تداخل في المحتوى أو الأزرار. تم اعتماد نظام عزل الصفحات برمجياً (Single Page Application) لضمان ظهور كل قسم بمفرده عند النقر عليه، مع تثبيت "Béton prêt à l'emploi" في الصدارة، ودعم كامل للغات الثلاث (الفرنسية، العربية، والإنجليزية) مع واجهة RTL حقيقية للغة العربية.
-تفضل الكود الكامل والنهائي لملف index.html:
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -8,10 +6,11 @@
     <title>HALIL ENGINEERING ENVIRONNEMENT (HEE) - Béton & Génie Civil</title>
     
     <!-- Meta SEO & Open Graph -->
-    <meta name="description" content="HALIL ENGINEERING ENVIRONNEMENT (HEE) - Entreprise algérienne spécialisée dans le béton prêt à l'emploi (BPE), la fabrication d'hourdis, parpaings et le génie civil.">
+    <meta name="description" content="HALIL ENGINEERING ENVIRONNEMENT (HEE) - Entreprise spécialisée dans le béton prêt à l'emploi (BPE), la fabrication d'hourdis, parpaings et le génie civil.">
     <meta property="og:title" content="HALIL ENGINEERING ENVIRONNEMENT (HEE)">
-    <meta property="og:description" content="Solutions industrielles de pointe en béton et génie civil en Algérie.">
+    <meta property="og:description" content="Solutions industrielles en béton et génie civil.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://halil-engineering.netlify.app/">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,7 +41,7 @@
             font-family: 'Cairo', sans-serif;
         }
 
-        /* Isolated View Controller: عزل تام وصارم بين الصفحات */
+        /* SPA Isolated View Controller */
         .hee-view {
             display: none !important;
         }
@@ -71,7 +70,7 @@
             <div class="flex flex-wrap justify-between items-center py-3 md:h-24 gap-4">
                 
                 <!-- Logo & Brand -->
-                <div class="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer" onclick="switchView('home')">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer" onclick="navigateTo('home')">
                     <div class="bg-heeAccent text-white font-black p-2.5 rounded-xl text-xl shadow-md tracking-wider">HEE</div>
                     <div>
                         <span class="font-black text-sm md:text-lg tracking-wider block text-white">HALIL ENGINEERING</span>
@@ -79,24 +78,44 @@
                     </div>
                 </div>
 
-                <!-- Navigation Menu -->
-                <nav class="flex flex-wrap items-center gap-1 md:gap-4 text-xs md:text-sm font-semibold">
-                    <button onclick="switchView('home')" id="nav-home-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer text-heeAccent">Accueil</button>
-                    <button onclick="switchView('about')" id="nav-about-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer">À propos</button>
-                    <button onclick="switchView('services')" id="nav-services-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer">Services</button>
-                    <button onclick="switchView('products')" id="nav-products-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer">Produits</button>
-                    <button onclick="switchView('facilities')" id="nav-facilities-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer">Production</button>
-                    <button onclick="switchView('contact')" id="nav-contact-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer">Contact</button>
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden md:flex items-center gap-2 text-sm font-semibold">
+                    <button onclick="navigateTo('home')" id="nav-home-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer text-heeAccent data-i18n">Accueil</button>
+                    <button onclick="navigateTo('about')" id="nav-about-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer data-i18n">À propos</button>
+                    <button onclick="navigateTo('services')" id="nav-services-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer data-i18n">Services</button>
+                    <button onclick="navigateTo('products')" id="nav-products-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer data-i18n">Produits</button>
+                    <button onclick="navigateTo('facilities')" id="nav-facilities-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer data-i18n">Production</button>
+                    <button onclick="navigateTo('contact')" id="nav-contact-btn" class="nav-item hover:text-heeAccent transition px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer data-i18n">Contact</button>
                 </nav>
 
-                <!-- Language Switcher -->
-                <div class="flex items-center bg-heeBlue/60 p-1 rounded-xl border border-white/10">
-                    <button onclick="changeLanguage('fr')" id="lang-fr" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-heeAccent text-white transition shadow-sm cursor-pointer">FR</button>
-                    <button onclick="changeLanguage('ar')" id="lang-ar" class="px-2.5 py-1 text-xs font-bold rounded-lg text-gray-300 hover:text-white transition cursor-pointer">AR</button>
-                    <button onclick="changeLanguage('en')" id="lang-en" class="px-2.5 py-1 text-xs font-bold rounded-lg text-gray-300 hover:text-white transition cursor-pointer">EN</button>
+                <!-- Right Header Elements: Language & Mobile Toggle -->
+                <div class="flex items-center gap-3">
+                    <!-- Language Switcher -->
+                    <div class="flex items-center bg-heeBlue/60 p-1 rounded-xl border border-white/10">
+                        <button onclick="changeLanguage('fr')" id="lang-fr" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-heeAccent text-white transition shadow-sm cursor-pointer">FR</button>
+                        <button onclick="changeLanguage('ar')" id="lang-ar" class="px-2.5 py-1 text-xs font-bold rounded-lg text-gray-300 hover:text-white transition cursor-pointer">AR</button>
+                        <button onclick="changeLanguage('en')" id="lang-en" class="px-2.5 py-1 text-xs font-bold rounded-lg text-gray-300 hover:text-white transition cursor-pointer">EN</button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg bg-white/5 text-white hover:bg-white/10 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
 
             </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-heeDark border-t border-white/10 px-4 pt-2 pb-6 space-y-2">
+            <button onclick="navigateTo('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 font-semibold text-sm data-i18n">Accueil</button>
+            <button onclick="navigateTo('about'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 font-semibold text-sm data-i18n">À propos</button>
+            <button onclick="navigateTo('services'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 font-semibold text-sm data-i18n">Services</button>
+            <button onclick="navigateTo('products'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 font-semibold text-sm data-i18n">Produits</button>
+            <button onclick="navigateTo('facilities'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 font-semibold text-sm data-i18n">Production</button>
+            <button onclick="navigateTo('contact'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 font-semibold text-sm data-i18n">Contact</button>
         </div>
     </header>
 
@@ -110,20 +129,20 @@
             
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="max-w-3xl">
-                    <span class="inline-block bg-heeAccent/20 text-heeAccent border border-heeAccent/40 text-xs md:text-sm font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
+                    <span class="inline-block bg-heeAccent/20 text-heeAccent border border-heeAccent/40 text-xs md:text-sm font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest data-i18n">
                         Excellence Industrielle en Algérie
                     </span>
-                    <h1 class="hero-title text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight text-white">
+                    <h1 class="hero-title text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight text-white data-i18n">
                         L'Excellence dans le Béton et le Génie Civil
                     </h1>
-                    <p class="hero-desc text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light">
+                    <p class="hero-desc text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light data-i18n">
                         HALIL ENGINEERING ENVIRONNEMENT (HEE) vous offre des solutions de pointe, durables et rigoureusement normées pour tous vos chantiers de construction et d'infrastructures.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="switchView('services')" class="hero-btn-services bg-heeAccent hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-heeAccent/30 transition text-center text-base cursor-pointer">
+                        <button onclick="navigateTo('services')" class="hero-btn-services bg-heeAccent hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-heeAccent/30 transition text-center text-base cursor-pointer data-i18n">
                             Découvrir Nos Services
                         </button>
-                        <button onclick="switchView('contact')" class="hero-btn-contact bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-8 py-4 rounded-xl transition text-center text-base backdrop-blur-sm cursor-pointer">
+                        <button onclick="navigateTo('contact')" class="hero-btn-contact bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-8 py-4 rounded-xl transition text-center text-base backdrop-blur-sm cursor-pointer data-i18n">
                             Contactez-Nos Experts
                         </button>
                     </div>
@@ -135,18 +154,18 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 border-t border-white/10">
                     <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
                         <div class="text-heeAccent font-black text-3xl mb-2">01</div>
-                        <h3 class="font-bold text-lg mb-1">Béton Prêt à l'Emploi (BPE)</h3>
-                        <p class="text-gray-400 text-sm">Formulations certifiées pour une résistance et une maniabilité optimales sur chantier.</p>
+                        <h3 class="font-bold text-lg mb-1 data-i18n">Béton Prêt à l'Emploi (BPE)</h3>
+                        <p class="text-gray-400 text-sm data-i18n">Formulations adaptées pour une résistance et une maniabilité optimales sur chantier.</p>
                     </div>
                     <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
                         <div class="text-heeAccent font-black text-3xl mb-2">02</div>
-                        <h3 class="font-bold text-lg mb-1">Préfabrication Industrielle</h3>
-                        <p class="text-gray-400 text-sm">Production haut de gamme d'hourdis, parpaings et blocs robustes pour le bâtiment.</p>
+                        <h3 class="font-bold text-lg mb-1 data-i18n">Préfabrication Industrielle</h3>
+                        <p class="text-gray-400 text-sm data-i18n">Production d'hourdis, parpaings et blocs robustes pour le bâtiment.</p>
                     </div>
                     <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
                         <div class="text-heeAccent font-black text-3xl mb-2">03</div>
-                        <h3 class="font-bold text-lg mb-1">Génie Civil & Ouvrages</h3>
-                        <p class="text-gray-400 text-sm">Maîtrise complète des structures en béton armé et des chantiers d'envergure.</p>
+                        <h3 class="font-bold text-lg mb-1 data-i18n">Génie Civil & Ouvrages</h3>
+                        <p class="text-gray-400 text-sm data-i18n">Conception et exécution de structures en béton armé et chantiers d'envergure.</p>
                     </div>
                 </div>
             </div>
@@ -156,56 +175,56 @@
         <section id="view-about" class="hee-view py-20 md:py-32 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-20">
-                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3">Institutionnel</span>
-                    <h2 class="about-heading text-3xl md:text-5xl font-black text-heeDark mb-6">À Propos de HEE</h2>
+                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3 data-i18n">Institutionnel</span>
+                    <h2 class="about-heading text-3xl md:text-5xl font-black text-heeDark mb-6 data-i18n">À Propos de HEE</h2>
                     <div class="w-20 h-1.5 bg-heeAccent mx-auto rounded-full"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
                     <div>
-                        <h3 class="about-sub text-2xl md:text-3xl font-bold text-heeBlue mb-6 leading-snug">
-                            Leader en Solutions de Construction et Environnement en Algérie
+                        <h3 class="about-sub text-2xl md:text-3xl font-bold text-heeBlue mb-6 leading-snug data-i18n">
+                            Solutions de Construction et Environnement en Algérie
                         </h3>
-                        <p class="about-text text-gray-600 leading-relaxed mb-6 text-base md:text-lg">
-                            HALIL ENGINEERING ENVIRONNEMENT (HEE) s'engage fermement à fournir des matériaux de construction de qualité supérieure et des prestations de génie civil rigoureusement conformes aux standards internationaux les plus stricts.
+                        <p class="about-text text-gray-600 leading-relaxed mb-6 text-base md:text-lg data-i18n">
+                            HALIL ENGINEERING ENVIRONNEMENT (HEE) s'engage à fournir des matériaux de construction de qualité et des prestations de génie civil adaptées aux besoins de ses clients.
                         </p>
-                        <p class="text-gray-600 leading-relaxed mb-8 text-base">
-                            Notre organisation s'appuie sur un équipement moderne, un parc logistique adapté et une équipe technique hautement qualifiée pour répondre aux exigences des maîtres d'œuvre et des promoteurs les plus exigeants.
+                        <p class="text-gray-600 leading-relaxed mb-8 text-base data-i18n">
+                            Notre organisation s'appuie sur des équipements professionnels, une logistique optimisée et une équipe technique dédiée pour répondre aux exigences des chantiers modernes.
                         </p>
                         <ul class="space-y-4 text-gray-700 font-medium">
                             <li class="flex items-center space-x-3 rtl:space-x-reverse">
                                 <span class="w-6 h-6 rounded-full bg-heeAccent/20 text-heeAccent flex items-center justify-center font-bold text-sm">✓</span>
-                                <span class="about-li-1">Qualité certifiée et contrôlée en laboratoire</span>
+                                <span class="about-li-1 data-i18n">Qualité contrôlée et suivie</span>
                             </li>
                             <li class="flex items-center space-x-3 rtl:space-x-reverse">
                                 <span class="w-6 h-6 rounded-full bg-heeAccent/20 text-heeAccent flex items-center justify-center font-bold text-sm">✓</span>
-                                <span class="about-li-2">Expertise technique de pointe en génie civil</span>
+                                <span class="about-li-2 data-i18n">Expertise technique en génie civil</span>
                             </li>
                             <li class="flex items-center space-x-3 rtl:space-x-reverse">
                                 <span class="w-6 h-6 rounded-full bg-heeAccent/20 text-heeAccent flex items-center justify-center font-bold text-sm">✓</span>
-                                <span class="about-li-3">Respect strict des délais et des normes environnementales</span>
+                                <span class="about-li-3 data-i18n">Respect des engagements et des consignes de sécurité</span>
                             </li>
                         </ul>
                     </div>
 
                     <div class="bg-heeDark rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
                         <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-heeAccent/10 rounded-full blur-2xl"></div>
-                        <h4 class="text-2xl font-black text-heeAccent mb-8 border-b border-white/10 pb-4">HEE en Chiffres</h4>
+                        <h4 class="text-2xl font-black text-heeAccent mb-8 border-b border-white/10 pb-4 data-i18n">HEE en Chiffres</h4>
                         
                         <div class="grid grid-cols-2 gap-8 text-center">
                             <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-                                <span class="block text-4xl md:text-5xl font-black text-heeAccent mb-2">+15</span>
-                                <span class="text-sm text-gray-300 font-medium about-stat-1">Ans d'Expérience</span>
+                                <span class="block text-4xl md:text-5xl font-black text-heeAccent mb-2">--</span>
+                                <span class="text-sm text-gray-300 font-medium about-stat-1 data-i18n">Expérience sur Mesure</span>
                             </div>
                             <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-                                <span class="block text-4xl md:text-5xl font-black text-heeAccent mb-2">+200</span>
-                                <span class="text-sm text-gray-300 font-medium about-stat-2">Projets Réalisés</span>
+                                <span class="block text-4xl md:text-5xl font-black text-heeAccent mb-2">--</span>
+                                <span class="text-sm text-gray-300 font-medium about-stat-2 data-i18n">Projets & Chantiers</span>
                             </div>
                         </div>
 
                         <div class="mt-8 pt-6 border-t border-white/10 text-center">
-                            <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold">Standards & Conformité</p>
-                            <p class="text-sm font-bold text-gray-200 mt-1">Conforme aux réglementations techniques algériennes et internationales.</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold data-i18n">Informations éditables</p>
+                            <p class="text-sm font-bold text-gray-200 mt-1 data-i18n">Statistiques à compléter selon l'évolution de l'entreprise.</p>
                         </div>
                     </div>
                 </div>
@@ -216,8 +235,8 @@
         <section id="view-services" class="hee-view py-20 md:py-32 bg-heeGrey">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-20">
-                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3">Savoir-Faire</span>
-                    <h2 class="services-heading text-3xl md:text-5xl font-black text-heeDark mb-6">Nos Services</h2>
+                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3 data-i18n">Savoir-Faire</span>
+                    <h2 class="services-heading text-3xl md:text-5xl font-black text-heeDark mb-6 data-i18n">Nos Services</h2>
                     <div class="w-20 h-1.5 bg-heeAccent mx-auto rounded-full"></div>
                 </div>
 
@@ -227,18 +246,18 @@
                         <div class="h-56 overflow-hidden relative">
                             <div class="absolute inset-0 bg-gradient-to-t from-heeDark/60 to-transparent z-10"></div>
                             <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f7?auto=format&fit=crop&w=800&q=80" alt="Béton Prêt à l'Emploi" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-4 left-4 z-20 bg-heeAccent text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider">Service Clé</span>
+                            <span class="absolute bottom-4 left-4 z-20 bg-heeAccent text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider data-i18n">Service Clé</span>
                         </div>
                         <div class="p-8 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="serv-1-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition">Béton Prêt à l'Emploi (BPE)</h3>
-                                <p class="serv-1-desc text-gray-600 leading-relaxed text-sm md:text-base">
-                                    Fourniture et pompage de béton prêt à l'emploi (BPE) hautement dosé et certifié, formulé pour répondre à tous vos besoins de coulage et de construction lourde.
+                                <h3 class="serv-1-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition data-i18n">Béton Prêt à l'Emploi (BPE)</h3>
+                                <p class="serv-1-desc text-gray-600 leading-relaxed text-sm md:text-base data-i18n">
+                                    Fourniture de béton prêt à l'emploi (BPE) formulé pour répondre à tous vos besoins de coulage et de construction.
                                 </p>
                             </div>
                             <div class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between">
-                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider">Haute Résistance</span>
-                                <button onclick="switchView('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer">Commander →</button>
+                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider data-i18n">Performance Optimale</span>
+                                <button onclick="navigateTo('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer data-i18n">Commander →</button>
                             </div>
                         </div>
                     </div>
@@ -248,18 +267,18 @@
                         <div class="h-56 overflow-hidden relative">
                             <div class="absolute inset-0 bg-gradient-to-t from-heeDark/60 to-transparent z-10"></div>
                             <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=800&q=80" alt="Fabrication de l'hourdis" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-4 left-4 z-20 bg-heeBlue text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider">Industriel</span>
+                            <span class="absolute bottom-4 left-4 z-20 bg-heeBlue text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider data-i18n">Industriel</span>
                         </div>
                         <div class="p-8 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="serv-2-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition">Fabrication de l'Hourdis</h3>
-                                <p class="serv-2-desc text-gray-600 leading-relaxed text-sm md:text-base">
-                                    Production industrielle d'hourdis robustes et réguliers répondant aux normes de résistance les plus strictes pour planchers corps creux.
+                                <h3 class="serv-2-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition data-i18n">Fabrication de l'Hourdis</h3>
+                                <p class="serv-2-desc text-gray-600 leading-relaxed text-sm md:text-base data-i18n">
+                                    Production industrielle d'hourdis robustes pour les planchers corps creux du bâtiment.
                                 </p>
                             </div>
                             <div class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between">
-                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider">Qualité Contrôlée</span>
-                                <button onclick="switchView('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer">Devis Rapide →</button>
+                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider data-i18n">Qualité Standard</span>
+                                <button onclick="navigateTo('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer data-i18n">Devis Rapide →</button>
                             </div>
                         </div>
                     </div>
@@ -269,18 +288,18 @@
                         <div class="h-56 overflow-hidden relative">
                             <div class="absolute inset-0 bg-gradient-to-t from-heeDark/60 to-transparent z-10"></div>
                             <img src="https://images.unsplash.com/photo-1517646456090-25bc5e56e401?auto=format&fit=crop&w=800&q=80" alt="Blocs de Construction" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-4 left-4 z-20 bg-heeAccent text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider">Bâtiment</span>
+                            <span class="absolute bottom-4 left-4 z-20 bg-heeAccent text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider data-i18n">Bâtiment</span>
                         </div>
                         <div class="p-8 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="serv-3-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition">Fabrication de Parpaings</h3>
-                                <p class="serv-3-desc text-gray-600 leading-relaxed text-sm md:text-base">
-                                    Fabrication de parpaings et blocs de construction de différentes dimensions pour murs porteurs et cloisons de séparation durables.
+                                <h3 class="serv-3-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition data-i18n">Fabrication de Parpaings</h3>
+                                <p class="serv-3-desc text-gray-600 leading-relaxed text-sm md:text-base data-i18n">
+                                    Fabrication de parpaings et blocs de construction de différentes dimensions pour murs porteurs et cloisons.
                                 </p>
                             </div>
                             <div class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between">
-                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider">Grand Stock</span>
-                                <button onclick="switchView('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer">En Savoir Plus →</button>
+                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider data-i18n">Disponibilité</span>
+                                <button onclick="navigateTo('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer data-i18n">En Savoir Plus →</button>
                             </div>
                         </div>
                     </div>
@@ -290,18 +309,18 @@
                         <div class="h-56 overflow-hidden relative">
                             <div class="absolute inset-0 bg-gradient-to-t from-heeDark/60 to-transparent z-10"></div>
                             <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="Génie Civil" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-4 left-4 z-20 bg-heeBlue text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider">Infrastructures</span>
+                            <span class="absolute bottom-4 left-4 z-20 bg-heeBlue text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider data-i18n">Infrastructures</span>
                         </div>
                         <div class="p-8 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="serv-4-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition">Génie Civil & Ouvrages</h3>
-                                <p class="serv-4-desc text-gray-600 leading-relaxed text-sm md:text-base">
-                                    Conception, étude et réalisation d'infrastructures en béton armé, fondations spéciales et grands ouvrages de génie civil.
+                                <h3 class="serv-4-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition data-i18n">Génie Civil & Ouvrages</h3>
+                                <p class="serv-4-desc text-gray-600 leading-relaxed text-sm md:text-base data-i18n">
+                                    Réalisation de structures et infrastructures adaptées aux chantiers de construction.
                                 </p>
                             </div>
                             <div class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between">
-                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider">Expertise Technique</span>
-                                <button onclick="switchView('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer">Consulter →</button>
+                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider data-i18n">Savoir-Faire</span>
+                                <button onclick="navigateTo('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer data-i18n">Consulter →</button>
                             </div>
                         </div>
                     </div>
@@ -311,18 +330,18 @@
                         <div class="h-56 overflow-hidden relative">
                             <div class="absolute inset-0 bg-gradient-to-t from-heeDark/60 to-transparent z-10"></div>
                             <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&w=1200&q=80" alt="Travaux en Béton Armé" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-4 left-4 z-20 bg-heeAccent text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider">Spécialisé</span>
+                            <span class="absolute bottom-4 left-4 z-20 bg-heeAccent text-white text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider data-i18n">Spécialisé</span>
                         </div>
                         <div class="p-8 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="serv-5-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition">Travaux en Béton Armé</h3>
-                                <p class="serv-5-desc text-gray-600 leading-relaxed text-sm md:text-base">
-                                    Exécution de tous types de travaux en béton armé pour les structures industrielles, résidentielles et commerciales avec un encadrement technique rigoureux et un matériel de pointe.
+                                <h3 class="serv-5-title text-2xl font-bold text-heeDark mb-4 group-hover:text-heeAccent transition data-i18n">Travaux en Béton Armé</h3>
+                                <p class="serv-5-desc text-gray-600 leading-relaxed text-sm md:text-base data-i18n">
+                                    Exécution de tous types de travaux en béton armé pour structures industrielles et résidentielles.
                                 </p>
                             </div>
                             <div class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between">
-                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider">Normes Internationales</span>
-                                <button onclick="switchView('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer">Contactez-nous →</button>
+                                <span class="text-xs font-semibold text-heeBlue uppercase tracking-wider data-i18n">Exécution Rigoureuse</span>
+                                <button onclick="navigateTo('contact')" class="text-heeAccent font-bold text-sm hover:underline cursor-pointer data-i18n">Contactez-nous →</button>
                             </div>
                         </div>
                     </div>
@@ -334,8 +353,8 @@
         <section id="view-products" class="hee-view py-20 md:py-32 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-20">
-                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3">Catalogue</span>
-                    <h2 class="products-heading text-3xl md:text-5xl font-black text-heeDark mb-6">Nos Produits</h2>
+                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3 data-i18n">Catalogue</span>
+                    <h2 class="products-heading text-3xl md:text-5xl font-black text-heeDark mb-6 data-i18n">Nos Produits</h2>
                     <div class="w-20 h-1.5 bg-heeAccent mx-auto rounded-full"></div>
                 </div>
 
@@ -346,14 +365,14 @@
                             <div class="h-48 rounded-2xl overflow-hidden mb-6 bg-white shadow-inner">
                                 <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f7?auto=format&fit=crop&w=600&q=80" alt="Béton BPE" class="w-full h-full object-cover">
                             </div>
-                            <h3 class="prod-1-title text-xl font-bold text-heeDark mb-3">Béton Prêt à l'Emploi (BPE)</h3>
-                            <p class="prod-1-desc text-gray-600 text-sm leading-relaxed mb-6">
-                                Béton certifié de différentes classes de résistance, livré directement sur vos chantiers par camions toupies pour une performance optimale.
+                            <h3 class="prod-1-title text-xl font-bold text-heeDark mb-3 data-i18n">Béton Prêt à l'Emploi (BPE)</h3>
+                            <p class="prod-1-desc text-gray-600 text-sm leading-relaxed mb-6 data-i18n">
+                                Béton livré directement sur vos chantiers pour une performance optimale.
                             </p>
                         </div>
                         <div class="pt-4 border-t border-gray-200 flex items-center justify-between text-xs font-semibold text-gray-500">
-                            <span>Référence: BPE-HEE</span>
-                            <span class="text-heeAccent font-bold">Certifié Normes</span>
+                            <span class="data-i18n">Référence: BPE-HEE</span>
+                            <span class="text-heeAccent font-bold data-i18n">Qualité Assurée</span>
                         </div>
                     </div>
 
@@ -363,14 +382,14 @@
                             <div class="h-48 rounded-2xl overflow-hidden mb-6 bg-white shadow-inner">
                                 <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=600&q=80" alt="Hourdis" class="w-full h-full object-cover">
                             </div>
-                            <h3 class="prod-2-title text-xl font-bold text-heeDark mb-3">Hourdis de Plancher</h3>
-                            <p class="prod-2-desc text-gray-600 text-sm leading-relaxed mb-6">
-                                Éléments préfabriqués pour planchers corps creux, garantissant une isolation thermique, phonique et une rigidité structurelle parfaite.
+                            <h3 class="prod-2-title text-xl font-bold text-heeDark mb-3 data-i18n">Hourdis de Plancher</h3>
+                            <p class="prod-2-desc text-gray-600 text-sm leading-relaxed mb-6 data-i18n">
+                                Éléments préfabriqués pour planchers corps creux, garantissant isolation et solidité.
                             </p>
                         </div>
                         <div class="pt-4 border-t border-gray-200 flex items-center justify-between text-xs font-semibold text-gray-500">
-                            <span>Référence: HOU-HEE</span>
-                            <span class="text-heeAccent font-bold">Standard Industriel</span>
+                            <span class="data-i18n">Référence: HOU-HEE</span>
+                            <span class="text-heeAccent font-bold data-i18n">Standard Bâtiment</span>
                         </div>
                     </div>
 
@@ -380,14 +399,14 @@
                             <div class="h-48 rounded-2xl overflow-hidden mb-6 bg-white shadow-inner">
                                 <img src="https://images.unsplash.com/photo-1517646456090-25bc5e56e401?auto=format&fit=crop&w=600&q=80" alt="Parpaing" class="w-full h-full object-cover">
                             </div>
-                            <h3 class="prod-3-title text-xl font-bold text-heeDark mb-3">Parpaings & Blocs Béton</h3>
-                            <p class="prod-3-desc text-gray-600 text-sm leading-relaxed mb-6">
-                                Blocs de construction pleins et creux de haute densité, conçus pour la maçonnerie porteuse et les cloisons de séparation.
+                            <h3 class="prod-3-title text-xl font-bold text-heeDark mb-3 data-i18n">Parpaings & Blocs Béton</h3>
+                            <p class="prod-3-desc text-gray-600 text-sm leading-relaxed mb-6 data-i18n">
+                                Blocs de construction de différentes dimensions pour murs porteurs et cloisons de séparation.
                             </p>
                         </div>
                         <div class="pt-4 border-t border-gray-200 flex items-center justify-between text-xs font-semibold text-gray-500">
-                            <span>Référence: PAR-HEE</span>
-                            <span class="text-heeAccent font-bold">Résistance Maximale</span>
+                            <span class="data-i18n">Référence: PAR-HEE</span>
+                            <span class="text-heeAccent font-bold data-i18n">Résistance Solide</span>
                         </div>
                     </div>
                 </div>
@@ -398,10 +417,10 @@
         <section id="view-facilities" class="hee-view py-20 md:py-32 bg-heeDark text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-20">
-                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3">Capacités Techniques</span>
-                    <h2 class="facilities-heading text-3xl md:text-5xl font-black mb-6">Nos Moyens de Production</h2>
+                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3 data-i18n">Capacités Techniques</span>
+                    <h2 class="facilities-heading text-3xl md:text-5xl font-black mb-6 data-i18n">Nos Moyens de Production</h2>
                     <div class="w-20 h-1.5 bg-heeAccent mx-auto rounded-full"></div>
-                    <p class="text-gray-300 mt-6 text-base md:text-lg">Un outil de production moderne et performant garantissant fiabilité et réactivité.</p>
+                    <p class="text-gray-300 mt-6 text-base md:text-lg data-i18n">Équipements et logistique dédiés à l'approvisionnement de vos chantiers.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -409,24 +428,24 @@
                         <div class="h-48 rounded-2xl overflow-hidden mb-6">
                             <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f7?auto=format&fit=crop&w=600&q=80" alt="Centrale à Béton" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-xl font-bold text-heeAccent mb-3">Centrales à Béton Modernes</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Centrales automatisées assurant un dosage précis et une production continue de béton de haute qualité.</p>
+                        <h3 class="text-xl font-bold text-heeAccent mb-3 data-i18n">Centrales à Béton</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed data-i18n">Installations adaptées pour la préparation et le mélange du béton prêt à l'emploi.</p>
                     </div>
 
                     <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm">
                         <div class="h-48 rounded-2xl overflow-hidden mb-6">
                             <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=600&q=80" alt="Presses à Parpaings" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-xl font-bold text-heeAccent mb-3">Unités de Préfabrication</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Lignes de production automatisées pour hourdis et parpaings à haute cadence et résistance garantie.</p>
+                        <h3 class="text-xl font-bold text-heeAccent mb-3 data-i18n">Unités de Préfabrication</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed data-i18n">Équipements de fabrication pour hourdis et parpaings de qualité constante.</p>
                     </div>
 
                     <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm">
                         <div class="h-48 rounded-2xl overflow-hidden mb-6">
                             <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=600&q=80" alt="Flotte Logistique" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-xl font-bold text-heeAccent mb-3">Flotte de Transport</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Camions toupies et véhicules de livraison adaptés pour acheminer vos commandes sur tous vos chantiers.</p>
+                        <h3 class="text-xl font-bold text-heeAccent mb-3 data-i18n">Flotte de Transport</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed data-i18n">Véhicules et camions toupies pour la livraison sur site.</p>
                     </div>
                 </div>
             </div>
@@ -436,8 +455,8 @@
         <section id="view-contact" class="hee-view py-20 md:py-32 bg-heeGrey">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-20">
-                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3">Restons en Contact</span>
-                    <h2 class="contact-heading text-3xl md:text-5xl font-black text-heeDark mb-6">Contactez-Nos Équipes</h2>
+                    <span class="text-heeAccent font-bold text-sm tracking-widest uppercase block mb-3 data-i18n">Restons en Contact</span>
+                    <h2 class="contact-heading text-3xl md:text-5xl font-black text-heeDark mb-6 data-i18n">Contactez-Nos Équipes</h2>
                     <div class="w-20 h-1.5 bg-heeAccent mx-auto rounded-full"></div>
                 </div>
 
@@ -446,28 +465,28 @@
                     <div class="bg-heeDark rounded-3xl p-8 md:p-12 text-white flex flex-col justify-between shadow-2xl">
                         <div>
                             <h3 class="text-2xl font-bold mb-6 text-heeAccent">HALIL ENGINEERING ENVIRONNEMENT</h3>
-                            <p class="text-gray-300 mb-8 leading-relaxed">
+                            <p class="text-gray-300 mb-8 leading-relaxed data-i18n">
                                 Pour toute demande de devis, commande de béton prêt à l'emploi, ou consultation pour vos projets de génie civil, contactez-nous directement.
                             </p>
                             <div class="space-y-6">
                                 <div class="flex items-start space-x-4 rtl:space-x-reverse">
                                     <div class="w-10 h-10 rounded-xl bg-heeAccent/20 text-heeAccent flex items-center justify-center shrink-0 font-bold">📍</div>
                                     <div>
-                                        <h4 class="font-bold text-sm text-gray-200">Localisation</h4>
-                                        <p class="text-gray-400 text-sm mt-1">Algérie (Blida / Environs)</p>
+                                        <h4 class="font-bold text-sm text-gray-200 data-i18n">Localisation</h4>
+                                        <p class="text-gray-400 text-sm mt-1 data-i18n">Algérie</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start space-x-4 rtl:space-x-reverse">
                                     <div class="w-10 h-10 rounded-xl bg-heeAccent/20 text-heeAccent flex items-center justify-center shrink-0 font-bold">✉️</div>
                                     <div>
-                                        <h4 class="font-bold text-sm text-gray-200">Email Professionnel</h4>
-                                        <p class="text-gray-400 text-sm mt-1">raber1994farouk@gmail.com</p>
+                                        <h4 class="font-bold text-sm text-gray-200 data-i18n">Email Professionnel</h4>
+                                        <p class="text-gray-400 text-sm mt-1">contact@halil-engineering.netlify.app</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start space-x-4 rtl:space-x-reverse">
                                     <div class="w-10 h-10 rounded-xl bg-heeAccent/20 text-heeAccent flex items-center justify-center shrink-0 font-bold">🌐</div>
                                     <div>
-                                        <h4 class="font-bold text-sm text-gray-200">Site Web Officiel</h4>
+                                        <h4 class="font-bold text-sm text-gray-200 data-i18n">Site Web Officiel</h4>
                                         <p class="text-gray-400 text-sm mt-1">https://halil-engineering.netlify.app/</p>
                                     </div>
                                 </div>
@@ -475,32 +494,32 @@
                         </div>
 
                         <div class="mt-12 pt-8 border-t border-white/10">
-                            <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2 font-semibold">Disponibilité</span>
-                            <p class="text-sm font-medium text-gray-200">Du Dimanche au Jeudi : 08:00 - 17:00</p>
+                            <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2 font-semibold data-i18n">Disponibilité</span>
+                            <p class="text-sm font-medium text-gray-200 data-i18n">Du Dimanche au Jeudi</p>
                         </div>
                     </div>
 
                     <!-- Functional Contact Form (Netlify Form Integrated) -->
                     <div class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100">
-                        <form name="contact" method="POST" netlify class="space-y-6">
+                        <form name="contact" method="POST" data-netlify="true" class="space-y-6">
                             <input type="hidden" name="form-name" value="contact">
                             <div>
-                                <label class="block text-sm font-bold text-heeDark mb-2 contact-name-label">Nom Complet</label>
+                                <label class="block text-sm font-bold text-heeDark mb-2 contact-name-label data-i18n">Nom Complet</label>
                                 <input type="text" name="name" required class="w-full px-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200 text-heeDark focus:outline-none focus:border-heeAccent focus:bg-white transition">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-heeDark mb-2 contact-email-label">Adresse Email</label>
+                                <label class="block text-sm font-bold text-heeDark mb-2 contact-email-label data-i18n">Adresse Email</label>
                                 <input type="email" name="email" required class="w-full px-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200 text-heeDark focus:outline-none focus:border-heeAccent focus:bg-white transition">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-heeDark mb-2 contact-phone-label">Numéro de Téléphone</label>
+                                <label class="block text-sm font-bold text-heeDark mb-2 contact-phone-label data-i18n">Numéro de Téléphone</label>
                                 <input type="tel" name="phone" class="w-full px-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200 text-heeDark focus:outline-none focus:border-heeAccent focus:bg-white transition">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-heeDark mb-2 contact-msg-label">Votre Message / Demande de Devis</label>
+                                <label class="block text-sm font-bold text-heeDark mb-2 contact-msg-label data-i18n">Votre Message / Demande de Devis</label>
                                 <textarea name="message" rows="4" required class="w-full px-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200 text-heeDark focus:outline-none focus:border-heeAccent focus:bg-white transition"></textarea>
                             </div>
-                            <button type="submit" class="contact-submit w-full bg-heeAccent hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-heeAccent/30 transition text-center text-base cursor-pointer">
+                            <button type="submit" class="contact-submit w-full bg-heeAccent hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-heeAccent/30 transition text-center text-base cursor-pointer data-i18n">
                                 Envoyer le Message
                             </button>
                         </form>
@@ -519,20 +538,26 @@
                     <div class="bg-heeAccent text-white font-black p-2 rounded-lg text-sm">HEE</div>
                     <span class="font-bold text-white text-sm">HALIL ENGINEERING ENVIRONNEMENT (HEE)</span>
                 </div>
-                <p class="text-xs text-gray-500 text-center">&copy; 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés.</p>
+                <p class="text-xs text-gray-500 text-center data-i18n">&copy; 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés.</p>
                 <div class="flex space-x-6 text-xs">
-                    <button onclick="switchView('home')" class="hover:text-heeAccent transition">Accueil</button>
-                    <button onclick="switchView('services')" class="hover:text-heeAccent transition">Services</button>
-                    <button onclick="switchView('contact')" class="hover:text-heeAccent transition">Contact</button>
+                    <button onclick="navigateTo('home')" class="hover:text-heeAccent transition data-i18n">Accueil</button>
+                    <button onclick="navigateTo('services')" class="hover:text-heeAccent transition data-i18n">Services</button>
+                    <button onclick="navigateTo('contact')" class="hover:text-heeAccent transition data-i18n">Contact</button>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT CONTROLLER: State-based Isolated Views & Full Multilingual Support -->
+    <!-- JAVASCRIPT CONTROLLER: SPA URL Hash Sync, Mobile Menu & Full Multilingual Support -->
     <script>
-        // Isolated View Switcher
-        function switchView(viewId) {
+        // Toggle Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // SPA View Switcher synchronized with URL Hash
+        function navigateTo(viewId, updateHash = true) {
             document.querySelectorAll('.hee-view').forEach(view => {
                 view.classList.remove('hee-active-view');
             });
@@ -540,6 +565,11 @@
             if (target) {
                 target.classList.add('hee-active-view');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Fallback to home if view doesn't exist
+                const homeTarget = document.getElementById('view-home');
+                if (homeTarget) homeTarget.classList.add('hee-active-view');
+                viewId = 'home';
             }
 
             // Update Nav Buttons State
@@ -550,7 +580,28 @@
             if (activeNavBtn) {
                 activeNavBtn.classList.add('text-heeAccent', 'bg-white/5');
             }
+
+            if (updateHash) {
+                window.location.hash = viewId;
+            }
         }
+
+        // Handle URL Hash on load and browser back/forward buttons
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                navigateTo(hash, false);
+            } else {
+                navigateTo('home', false);
+            }
+        });
+
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                navigateTo(hash, false);
+            }
+        });
 
         // Multilingual Dictionary & Translator Engine
         const translations = {
@@ -568,44 +619,96 @@
                 "hero-desc": "HALIL ENGINEERING ENVIRONNEMENT (HEE) vous offre des solutions de pointe, durables et rigoureusement normées pour tous vos chantiers de construction et d'infrastructures.",
                 "hero-btn-services": "Découvrir Nos Services",
                 "hero-btn-contact": "Contactez-Nos Experts",
+                // Hero Highlights
+                "Béton Prêt à l'Emploi (BPE)": "Béton Prêt à l'Emploi (BPE)",
+                "Formulations adaptées pour une résistance et une maniabilité optimales sur chantier.": "Formulations adaptées pour une résistance et une maniabilité optimales sur chantier.",
+                "Préfabrication Industrielle": "Préfabrication Industrielle",
+                "Production d'hourdis, parpaings et blocs robustes pour le bâtiment.": "Production d'hourdis, parpaings et blocs robustes pour le bâtiment.",
+                "Génie Civil & Ouvrages": "Génie Civil & Ouvrages",
+                "Conception et exécution de structures en béton armé et chantiers d'envergure.": "Conception et exécution de structures en béton armé et chantiers d'envergure.",
                 // About
                 "about-heading": "À Propos de HEE",
-                "about-sub": "Leader en Solutions de Construction et Environnement en Algérie",
-                "about-text": "HALIL ENGINEERING ENVIRONNEMENT (HEE) s'engage fermement à fournir des matériaux de construction de qualité supérieure et des prestations de génie civil rigoureusement conformes aux standards internationaux les plus stricts.",
-                "about-li-1": "Qualité certifiée et contrôlée en laboratoire",
-                "about-li-2": "Expertise technique de pointe en génie civil",
-                "about-li-3": "Respect strict des délais et des normes environnementales",
-                "about-stat-1": "Ans d'Expérience",
-                "about-stat-2": "Projets Réalisés",
+                "about-sub": "Solutions de Construction et Environnement en Algérie",
+                "about-text": "HALIL ENGINEERING ENVIRONNEMENT (HEE) s'engage à fournir des matériaux de construction de qualité et des prestations de génie civil adaptées aux besoins de ses clients.",
+                "about-li-1": "Qualité contrôlée et suivie",
+                "about-li-2": "Expertise technique en génie civil",
+                "about-li-3": "Respect des engagements et des consignes de sécurité",
+                "about-stat-1": "Expérience sur Mesure",
+                "about-stat-2": "Projets & Chantiers",
+                "HEE en Chiffres": "HEE en Chiffres",
+                "Informations éditables": "Informations éditables",
+                "Statistiques à compléter selon l'évolution de l'entreprise.": "Statistiques à compléter selon l'évolution de l'entreprise.",
                 // Services
                 "services-heading": "Nos Services",
                 "serv-1-title": "Béton Prêt à l'Emploi (BPE)",
-                "serv-1-desc": "Fourniture et pompage de béton prêt à l'emploi (BPE) hautement dosé et certifié, formulé pour répondre à tous vos besoins de coulage et de construction lourde.",
+                "serv-1-desc": "Fourniture de béton prêt à l'emploi (BPE) formulé pour répondre à tous vos besoins de coulage et de construction.",
                 "serv-2-title": "Fabrication de l'Hourdis",
-                "serv-2-desc": "Production industrielle d'hourdis robustes et réguliers répondant aux normes de résistance les plus strictes pour planchers corps creux.",
+                "serv-2-desc": "Production industrielle d'hourdis robustes pour les planchers corps creux du bâtiment.",
                 "serv-3-title": "Fabrication de Parpaings",
-                "serv-3-desc": "Fabrication de parpaings et blocs de construction de différentes dimensions pour murs porteurs et cloisons de séparation durables.",
+                "serv-3-desc": "Fabrication de parpaings et blocs de construction de différentes dimensions pour murs porteurs et cloisons.",
                 "serv-4-title": "Génie Civil & Ouvrages",
-                "serv-4-desc": "Conception, étude et réalisation d'infrastructures en béton armé, fondations spéciales et grands ouvrages de génie civil.",
+                "serv-4-desc": "Réalisation de structures et infrastructures adaptées aux chantiers de construction.",
                 "serv-5-title": "Travaux en Béton Armé",
-                "serv-5-desc": "Exécution de tous types de travaux en béton armé pour les structures industrielles, résidentielles et commerciales avec un encadrement technique rigoureux et un matériel de pointe.",
+                "serv-5-desc": "Exécution de tous types de travaux en béton armé pour structures industrielles et résidentielles.",
+                "Service Clé": "Service Clé",
+                "Performance Optimale": "Performance Optimale",
+                "Commander →": "Commander →",
+                "Industriel": "Industriel",
+                "Qualité Standard": "Qualité Standard",
+                "Devis Rapide →": "Devis Rapide →",
+                "Bâtiment": "Bâtiment",
+                "Disponibilité": "Disponibilité",
+                "En Savoir Plus →": "En Savoir Plus →",
+                "Infrastructures": "Infrastructures",
+                "Savoir-Faire": "Savoir-Faire",
+                "Consulter →": "Consulter →",
+                "Spécialisé": "Spécialisé",
+                "Exécution Rigoureuse": "Exécution Rigoureuse",
+                "Contactez-nous →": "Contactez-nous →",
                 // Products
                 "products-heading": "Nos Produits",
+                "Catalogue": "Catalogue",
                 "prod-1-title": "Béton Prêt à l'Emploi (BPE)",
-                "prod-1-desc": "Béton certifié de différentes classes de résistance, livré directement sur vos chantiers par camions toupies pour une performance optimale.",
+                "prod-1-desc": "Béton livré directement sur vos chantiers pour une performance optimale.",
                 "prod-2-title": "Hourdis de Plancher",
-                "prod-2-desc": "Éléments préfabriqués pour planchers corps creux, garantissant une isolation thermique, phonique et une rigidité structurelle parfaite.",
+                "prod-2-desc": "Éléments préfabriqués pour planchers corps creux, garantissant isolation et solidité.",
                 "prod-3-title": "Parpaings & Blocs Béton",
-                "prod-3-desc": "Blocs de construction pleins et creux de haute densité, conçus pour la maçonnerie porteuse et les cloisons de séparation.",
+                "prod-3-desc": "Blocs de construction de différentes dimensions pour murs porteurs et cloisons de séparation.",
+                "Référence: BPE-HEE": "Référence: BPE-HEE",
+                "Qualité Assurée": "Qualité Assurée",
+                "Référence: HOU-HEE": "Référence: HOU-HEE",
+                "Standard Bâtiment": "Standard Bâtiment",
+                "Référence: PAR-HEE": "Référence: PAR-HEE",
+                "Résistance Solide": "Résistance Solide",
                 // Facilities
                 "facilities-heading": "Nos Moyens de Production",
+                "Capacités Techniques": "Capacités Techniques",
+                "Équipements et logistique dédiés à l'approvisionnement de vos chantiers.": "Équipements et logistique dédiés à l'approvisionnement de vos chantiers.",
+                "Centrales à Béton": "Centrales à Béton",
+                "Installations adaptées pour la préparation et le mélange du béton prêt à l'emploi.": "Installations adaptées pour la préparation et le mélange du béton prêt à l'emploi.",
+                "Unités de Préfabrication": "Unités de Préfabrication",
+                "Équipements de fabrication pour hourdis et parpaings de qualité constante.": "Équipements de fabrication pour hourdis et parpaings de qualité constante.",
+                "Flotte de Transport": "Flotte de Transport",
+                "Véhicules et camions toupies pour la livraison sur site.": "Véhicules et camions toupies pour la livraison sur site.",
                 // Contact
                 "contact-heading": "Contactez-Nos Équipes",
+                "Restons en Contact": "Restons en Contact",
+                "Pour toute demande de devis, commande de béton prêt à l'emploi, ou consultation pour vos projets de génie civil, contactez-nous directement.": "Pour toute demande de devis, commande de béton prêt à l'emploi, ou consultation pour vos projets de génie civil, contactez-nous directement.",
+                "Localisation": "Localisation",
+                "Algérie": "Algérie",
+                "Email Professionnel": "Email Professionnel",
+                "contact@halil-engineering.netlify.app": "contact@halil-engineering.netlify.app",
+                "Site Web Officiel": "Site Web Officiel",
+                "https://halil-engineering.netlify.app/": "https://halil-engineering.netlify.app/",
+                "Disponibilité": "Disponibilité",
+                "Du Dimanche au Jeudi": "Du Dimanche au Jeudi",
                 "contact-name-label": "Nom Complet",
                 "contact-email-label": "Adresse Email",
                 "contact-phone-label": "Numéro de Téléphone",
                 "contact-msg-label": "Votre Message / Demande de Devis",
-                "contact-submit": "Envoyer le Message"
+                "contact-submit": "Envoyer le Message",
+                // Footer
+                "© 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés.": "© 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés."
             },
             ar: {
                 dir: "rtl",
@@ -621,44 +724,96 @@
                 "hero-desc": "تقدم لك شركة هاليل إنجينيرينغ إنفيرونمونت (HEE) حلولاً متطورة ومستدامة ومطابقة لأرقى المعايير لجميع مشاريع البناء والبنية التحتية.",
                 "hero-btn-services": "اكتشف خدماتنا",
                 "hero-btn-contact": "تواصل مع خبرائنا",
+                // Hero Highlights
+                "Béton Prêt à l'Emploi (BPE)": "الخرسانة الجاهزة للاستخدام (BPE)",
+                "Formulations adaptées pour une résistance et une maniabilité optimales sur chantier.": "تخلطات مصممة خصيصاً لضمان مقاومة وقابلية تشغيل مثالية في الموقع.",
+                "Préfabrication Industrielle": "التصنيع المسبق الصناعي",
+                "Production d'hourdis, parpaings et blocs robustes pour le bâtiment.": "إنتاج الهوردي والباربان والكتل المتينة لقطاع البناء.",
+                "Génie Civil & Ouvrages": "الهندسة المدنية والمنشآت",
+                "Conception et exécution de structures en béton armé et chantiers d'envergure.": "تصميم وتنفيذ هياكل الخرسانة المسلحة والمشاريع الكبرى.",
                 // About
                 "about-heading": "من نحن",
-                "about-sub": "الرائدون في حلول البناء والبيئة في الجزائر",
-                "about-text": "تلتزم شركة هاليل إنجينيرينغ إنفيرونمونت (HEE) التزاما تاماً بتوفير مواد بناء عالية الجودة وخدمات هندسة مدنية متطورة تتوافق بدقة مع المعايير الدولية الصارمة.",
-                "about-li-1": "جودة معتمدة ومختبرة بدقة",
-                "about-li-2": "خبرة تقنية متقدمة في الهندسة المدنية",
-                "about-li-3": "الالتزام الصارم بالمواعيد والمعايير البيئية",
-                "about-stat-1": "سنوات الخبرة",
-                "about-stat-2": "مشروع منجز",
+                "about-sub": "حلول البناء والبيئة في الجزائر",
+                "about-text": "تلتزم شركة هاليل إنجينيرينغ إنفيرونمونت (HEE) بتوفير مواد بناء عالية الجودة وخدمات هندسة مدنية تلبي احتياجات عملائها.",
+                "about-li-1": "جودة مراقبة ومتابعة",
+                "about-li-2": "خبرة تقنية في الهندسة المدنية",
+                "about-li-3": "احترام الالتزامات وقواعد السلامة",
+                "about-stat-1": "خبرة مخصصة",
+                "about-stat-2": "المشاريع والورشات",
+                "HEE en Chiffres": "هاليل إنجينيرينغ بالأرقام",
+                "Informations éditables": "معلومات قابلة للتعديل",
+                "Statistiques à compléter selon l'évolution de l'entreprise.": "إحصائيات ستُستكمل حسب تطور الشركة.",
                 // Services
                 "services-heading": "خدماتنا",
                 "serv-1-title": "الخرسانة الجاهزة للاستخدام (BPE)",
-                "serv-1-desc": "توفير وضخ خرسانة جاهزة عالية الجودة ومعتمدة، مصممة خصيصاً لتلبية جميع متطلبات الصب والبناء الثقيل.",
+                "serv-1-desc": "توفير الخرسانة الجاهزة للاستخدام (BPE) المصممة لتلبية جميع متطلبات الصب والبناء لديك.",
                 "serv-2-title": "تصنيع الهوردي",
-                "serv-2-desc": "إنتاج صناعي لهوردي متين ومنتظم مطابق لأعلى معايير المتانة للأسقف المجوفة.",
+                "serv-2-desc": "إنتاج صناعي للهوردي المتين لأسقف المباني.",
                 "serv-3-title": "تصنيع البلوك والباربان",
-                "serv-3-desc": "تصنيع باربان وبلوك بناء بمقاسات مختلفة للجدران الحاملة وقواطع الفاصل المتينة.",
+                "serv-3-desc": "تصنيع باربان وبلوك بناء بمقاسات مختلفة للجدران الحاملة والقواطع.",
                 "serv-4-title": "الهندسة المدنية والمنشآت",
-                "serv-4-desc": "تصميم ودراسة وتنفيد البنى التحتية، الأساسات الخاصة، ومشاريع الهندسة المدنية الكبرى.",
+                "serv-4-desc": "إنجاز الهياكل والبنى التحتية الملائمة لمشاريع البناء.",
                 "serv-5-title": "أعمال الخرسانة المسلحة",
-                "serv-5-desc": "تنفيذ جميع أنواع أعمال الخرسانة المسلحة للمنشآت الصناعية والتجارية والسكنية بإشراف هندسي ومعدات حديثة.",
+                "serv-5-desc": "تنفيذ جميع أنواع أعمال الخرسانة المسلحة للمنشآت الصناعية والسكنية.",
+                "Service Clé": "خدمة رئيسية",
+                "Performance Optimale": "أداء مثالي",
+                "Commander →": "اطلب الآن ←",
+                "Industriel": "صناعي",
+                "Qualité Standard": "جودة معيارية",
+                "Devis Rapide →": "طلب سعر سريع ←",
+                "Bâtiment": "بناء",
+                "Disponibilité": "توفر",
+                "En Savoir Plus →": "اعرف المزيد ←",
+                "Infrastructures": "بنى تحتية",
+                "Savoir-Faire": "خبرتنا",
+                "Consulter →": "استشر ←",
+                "Spécialisé": "متخصص",
+                "Exécution Rigoureuse": "تنفيذ دقيق",
+                "Contactez-nous →": "اتصل بنا ←",
                 // Products
                 "products-heading": "منتجاتنا",
+                "Catalogue": "الكتالوج",
                 "prod-1-title": "الخرسانة الجاهزة (BPE)",
-                "prod-1-desc": "خرسانة معتمدة بشتى درجات المقاومة، يتم توصيلها مباشرة إلى ورشاتكم لشل أداء مثالي.",
+                "prod-1-desc": "خرسانة يتم توصيلها مباشرة إلى ورشاتكم لأداء مثالي.",
                 "prod-2-title": "هوردي الأسقف",
-                "prod-2-desc": "عناصر جاهزة للأسقف المجوفة، تضمن عزلاً حرارياً وصوتياً وصلابة هيكلية مثالية.",
+                "prod-2-desc": "عناصر مسبقة الصب للأسقف، تضمن العزل والصلابة.",
                 "prod-3-title": "البلوك والباربان الخرساني",
-                "prod-3-desc": "كتل بناء مفرغة ومصمتة عالية الكثافة، مصممة للبناء الحامل والقواطع.",
+                "prod-3-desc": "كتل بناء بأبعاد مختلفة للجدران الحاملة وقواطع الفاصل.",
+                "Référence: BPE-HEE": "المرجع: BPE-HEE",
+                "Qualité Assurée": "جودة مضمونة",
+                "Référence: HOU-HEE": "المرجع: HOU-HEE",
+                "Standard Bâtiment": "معيار البناء",
+                "Référence: PAR-HEE": "المرجع: PAR-HEE",
+                "Résistance Solide": "مقاومة صلبة",
                 // Facilities
                 "facilities-heading": "إمكانياتنا الإنتاجية",
+                "Capacités Techniques": "القدرات التقنية",
+                "Équipements et logistique dédiés à l'approvisionnement de vos chantiers.": "المعدات واللوجستيات المخصصة لتوفير احتياجات ورشاتكم.",
+                "Centrales à Béton": "محطات الخرسانة",
+                "Installations adaptées pour la préparation et le mélange du béton prêt à l'emploi.": "منشآت ملائمة لتحضير وخلط الخرسانة الجاهزة.",
+                "Unités de Préfabrication": "وحدات التصنيع المسبق",
+                "Équipements de fabrication pour hourdis et parpaings de qualité constante.": "معدات تصنيع للهوردي والباربان بجودة ثابتة.",
+                "Flotte de Transport": "أسطول النقل",
+                "Véhicules et camions toupies pour la livraison sur site.": "مركبات وشاحنات خلاطة للتوصيل للموقع.",
                 // Contact
                 "contact-heading": "تواصل مع فرقنا",
+                "Restons en Contact": "ابقَ على تواصل",
+                "Pour toute demande de devis, commande de béton prêt à l'emploi, ou consultation pour vos projets de génie civil, contactez-nous directement.": "لأي طلب عرض سعر، طلب خرسانة جاهزة، أو استشارة لمشاريع الهندسة المدنية، تواصل معنا مباشرة.",
+                "Localisation": "الموقع",
+                "Algérie": "الجزائر",
+                "Email Professionnel": "البريد الإلكتروني المهني",
+                "contact@halil-engineering.netlify.app": "contact@halil-engineering.netlify.app",
+                "Site Web Officiel": "الموقع الإلكتروني الرسمي",
+                "https://halil-engineering.netlify.app/": "https://halil-engineering.netlify.app/",
+                "Disponibilité": "التوفر",
+                "Du Dimanche au Jeudi": "من الأحد إلى الخميس",
                 "contact-name-label": "الاسم الكامل",
-                "contact-email-label": "البريد الإلكتروني",
+                "contact-email-label": "عنوان البريد الإلكتروني",
                 "contact-phone-label": "رقم الهاتف",
-                "contact-msg-label": "رسالتك / طلب عرض سعر",
-                "contact-submit": "إرسال الرسالة"
+                "contact-msg-label": "رسالتك / طلب عرض السعر",
+                "contact-submit": "إرسال الرسالة",
+                // Footer
+                "© 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés.": "© 2026 هاليل إنجينيرينغ إنفيرونمونت (HEE). جميع الحقوق محفوظة."
             },
             en: {
                 dir: "ltr",
@@ -671,53 +826,108 @@
                 "nav-contact": "Contact",
                 // Hero
                 "hero-title": "Excellence in Concrete and Civil Engineering",
-                "hero-desc": "HALIL ENGINEERING ENVIRONNEMENT (HEE) offers advanced, sustainable, and rigorously standardized solutions for all your construction and infrastructure projects.",
+                "hero-desc": "HALIL ENGINEERING ENVIRONNEMENT (HEE) offers advanced, sustainable, and standardized solutions for all your construction and infrastructure projects.",
                 "hero-btn-services": "Discover Our Services",
                 "hero-btn-contact": "Contact Our Experts",
+                // Hero Highlights
+                "Béton Prêt à l'Emploi (BPE)": "Ready-Mix Concrete (RMC)",
+                "Formulations adaptées pour une résistance et une maniabilité optimales sur chantier.": "Tailored formulations for optimal strength and workability on site.",
+                "Préfabrication Industrielle": "Industrial Prefabrication",
+                "Production d'hourdis, parpaings et blocs robustes pour le bâtiment.": "Production of hourdis, parpaings, and robust blocks for buildings.",
+                "Génie Civil & Ouvrages": "Civil Engineering & Structures",
+                "Conception et exécution de structures en béton armé et chantiers d'envergure.": "Design and execution of reinforced concrete structures and large projects.",
                 // About
                 "about-heading": "About HEE",
-                "about-sub": "Leader in Construction and Environmental Solutions in Algeria",
-                "about-text": "HALIL ENGINEERING ENVIRONNEMENT (HEE) is firmly committed to providing superior quality construction materials and civil engineering services strictly complying with the strictest international standards.",
-                "about-li-1": "Certified and laboratory-controlled quality",
-                "about-li-2": "Advanced technical expertise in civil engineering",
-                "about-li-3": "Strict adherence to deadlines and environmental standards",
-                "about-stat-1": "Years of Experience",
-                "about-stat-2": "Completed Projects",
+                "about-sub": "Construction and Environmental Solutions in Algeria",
+                "about-text": "HALIL ENGINEERING ENVIRONNEMENT (HEE) is committed to providing quality construction materials and civil engineering services tailored to our clients' needs.",
+                "about-li-1": "Controlled and monitored quality",
+                "about-li-2": "Technical expertise in civil engineering",
+                "about-li-3": "Adherence to commitments and safety guidelines",
+                "about-stat-1": "Custom Experience",
+                "about-stat-2": "Projects & Sites",
+                "HEE en Chiffres": "HEE in Figures",
+                "Informations éditables": "Editable information",
+                "Statistiques à compléter selon l'évolution de l'entreprise.": "Statistics to be completed according to the company's evolution.",
                 // Services
                 "services-heading": "Our Services",
                 "serv-1-title": "Ready-Mix Concrete (RMC)",
-                "serv-1-desc": "Supply and pumping of high-strength, certified ready-mix concrete designed to meet all your pouring and heavy construction requirements.",
+                "serv-1-desc": "Supply of ready-mix concrete (RMC) formulated to meet all your pouring and construction requirements.",
                 "serv-2-title": "Hourdis Manufacturing",
-                "serv-2-desc": "Industrial production of robust and uniform hourdis meeting the strictest strength standards for hollow-core slabs.",
+                "serv-2-desc": "Industrial production of robust hourdis for hollow-core floors.",
                 "serv-3-title": "Concrete Block Manufacturing",
-                "serv-3-desc": "Manufacturing of parpaings and concrete blocks in various dimensions for load-bearing walls and durable partitions.",
+                "serv-3-desc": "Manufacturing of parpaings and concrete blocks in various dimensions for load-bearing walls and partitions.",
                 "serv-4-title": "Civil Engineering & Structures",
-                "serv-4-desc": "Design, study, and execution of reinforced concrete infrastructure, special foundations, and major civil engineering works.",
+                "serv-4-desc": "Execution of structures and infrastructure adapted to construction sites.",
                 "serv-5-title": "Reinforced Concrete Works",
-                "serv-5-desc": "Execution of all types of reinforced concrete works for industrial, residential, and commercial structures with rigorous technical supervision and state-of-the-art equipment.",
+                "serv-5-desc": "Execution of all types of reinforced concrete works for industrial and residential structures.",
+                "Service Clé": "Key Service",
+                "Performance Optimale": "Optimal Performance",
+                "Commander →": "Order Now →",
+                "Industriel": "Industrial",
+                "Qualité Standard": "Standard Quality",
+                "Devis Rapide →": "Quick Quote →",
+                "Bâtiment": "Building",
+                "Disponibilité": "Availability",
+                "En Savoir Plus →": "Learn More →",
+                "Infrastructures": "Infrastructure",
+                "Savoir-Faire": "Expertise",
+                "Consulter →": "Consult →",
+                "Spécialisé": "Specialized",
+                "Exécution Rigoureuse": "Rigorous Execution",
+                "Contactez-nous →": "Contact Us →",
                 // Products
                 "products-heading": "Our Products",
+                "Catalogue": "Catalog",
                 "prod-1-title": "Ready-Mix Concrete (RMC)",
-                "prod-1-desc": "Certified concrete across various resistance classes, delivered directly to your sites by mixer trucks for optimal performance.",
+                "prod-1-desc": "Concrete delivered directly to your sites for optimal performance.",
                 "prod-2-title": "Floor Hourdis",
-                "prod-2-desc": "Prefabricated elements for hollow-core slabs, ensuring thermal and acoustic insulation along with perfect structural rigidity.",
+                "prod-2-desc": "Prefabricated elements for hollow-core slabs, ensuring insulation and solidity.",
                 "prod-3-title": "Parpaings & Concrete Blocks",
-                "prod-3-desc": "High-density solid and hollow construction blocks designed for load-bearing masonry and partition walls.",
+                "prod-3-desc": "Construction blocks in various dimensions for load-bearing walls and partitions.",
+                "Référence: BPE-HEE": "Ref: BPE-HEE",
+                "Qualité Assurée": "Assured Quality",
+                "Référence: HOU-HEE": "Ref: HOU-HEE",
+                "Standard Bâtiment": "Building Standard",
+                "Référence: PAR-HEE": "Ref: PAR-HEE",
+                "Résistance Solide": "Solid Strength",
                 // Facilities
                 "facilities-heading": "Our Production Facilities",
+                "Capacités Techniques": "Technical Capabilities",
+                "Équipements et logistique dédiés à l'approvisionnement de vos chantiers.": "Equipment and logistics dedicated to supplying your construction sites.",
+                "Centrales à Béton": "Concrete Batching Plants",
+                "Installations adaptées pour la préparation et le mélange du béton prêt à l'emploi.": "Facilities adapted for the preparation and mixing of ready-mix concrete.",
+                "Unités de Préfabrication": "Prefabrication Units",
+                "Équipements de fabrication pour hourdis et parpaings de qualité constante.": "Manufacturing equipment for hourdis and parpaings of consistent quality.",
+                "Flotte de Transport": "Transport Fleet",
+                "Véhicules et camions toupies pour la livraison sur site.": "Vehicles and mixer trucks for on-site delivery.",
                 // Contact
                 "contact-heading": "Contact Our Teams",
+                "Restons en Contact": "Get in Touch",
+                "Pour toute demande de devis, commande de béton prêt à l'emploi, ou consultation pour vos projets de génie civil, contactez-nous directement.": "For any quote request, ready-mix concrete order, or consultation for your civil engineering projects, contact us directly.",
+                "Localisation": "Location",
+                "Algérie": "Algeria",
+                "Email Professionnel": "Professional Email",
+                "contact@halil-engineering.netlify.app": "contact@halil-engineering.netlify.app",
+                "Site Web Officiel": "Official Website",
+                "https://halil-engineering.netlify.app/": "https://halil-engineering.netlify.app/",
+                "Disponibilité": "Availability",
+                "Du Dimanche au Jeudi": "Sunday to Thursday",
                 "contact-name-label": "Full Name",
                 "contact-email-label": "Email Address",
                 "contact-phone-label": "Phone Number",
                 "contact-msg-label": "Your Message / Quote Request",
-                "contact-submit": "Send Message"
+                "contact-submit": "Send Message",
+                // Footer
+                "© 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés.": "© 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). All rights reserved."
             }
         };
+
+        let currentLang = 'fr';
 
         function changeLanguage(lang) {
             const data = translations[lang];
             if (!data) return;
+            currentLang = lang;
 
             document.documentElement.setAttribute('lang', lang);
             document.documentElement.setAttribute('dir', data.dir);
@@ -733,7 +943,7 @@
                 }
             });
 
-            // Translate elements by class/id matching keys
+            // Translate elements by class/id matching keys or data-i18n
             for (const key in data) {
                 if (key === 'dir') continue;
                 
@@ -750,8 +960,28 @@
                     el.textContent = data[key];
                 });
             }
+
+            // Fallback general pass for elements with exact innerText matching French keys
+            document.querySelectorAll('.data-i18n').forEach(el => {
+                const originalText = el.getAttribute('data-original-text') || el.innerText.trim();
+                if (!el.hasAttribute('data-original-text')) {
+                    el.setAttribute('data-original-text', originalText);
+                }
+                // Check if translations have it via original text lookup (simplified matching)
+                const lookupKey = findKeyByFrenchText(originalText);
+                if (lookupKey && translations[lang][lookupKey]) {
+                    el.textContent = translations[lang][lookupKey];
+                }
+            });
+        }
+
+        // Helper to map UI text back to translation keys
+        function findKeyByFrenchText(text) {
+            for (const key in translations.fr) {
+                if (translations.fr[key] === text) return key;
+            }
+            return null;
         }
     </script>
 </body>
 </html>
-
