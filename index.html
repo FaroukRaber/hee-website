@@ -24,11 +24,11 @@
         body { font-family: 'Inter', sans-serif; }
         body[dir="rtl"] { font-family: 'Cairo', sans-serif; }
         
-        /* نظام عزل الصفحات الجديد كلياً لمنع التداخل */
-        .hee-page {
+        /* نظام عزل الصفحات النهائي والصارم */
+        .hee-page-section {
             display: none !important;
         }
-        .hee-page.hee-active {
+        .hee-page-section.hee-page-active {
             display: block !important;
         }
     </style>
@@ -50,11 +50,11 @@
 
                 <!-- Navigation Links -->
                 <nav class="flex flex-wrap items-center gap-1 md:gap-6 text-xs md:text-sm font-medium">
-                    <button onclick="goToPage('home')" class="nav-home hover:text-heeOrange transition px-2 py-1 cursor-pointer">Accueil</button>
-                    <button onclick="goToPage('about')" class="nav-about hover:text-heeOrange transition px-2 py-1 cursor-pointer">À propos</button>
-                    <button onclick="goToPage('services')" class="nav-services hover:text-heeOrange transition px-2 py-1 cursor-pointer">Services</button>
-                    <button onclick="goToPage('products')" class="nav-products hover:text-heeOrange transition px-2 py-1 cursor-pointer">Produits</button>
-                    <button onclick="goToPage('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1 cursor-pointer">Contact</button>
+                    <button onclick="openPage('home')" class="nav-home hover:text-heeOrange transition px-2 py-1 cursor-pointer">Accueil</button>
+                    <button onclick="openPage('about')" class="nav-about hover:text-heeOrange transition px-2 py-1 cursor-pointer">À propos</button>
+                    <button onclick="openPage('services')" class="nav-services hover:text-heeOrange transition px-2 py-1 cursor-pointer">Services</button>
+                    <button onclick="openPage('products')" class="nav-products hover:text-heeOrange transition px-2 py-1 cursor-pointer">Produits</button>
+                    <button onclick="openPage('contact')" class="nav-contact hover:text-heeOrange transition px-2 py-1 cursor-pointer">Contact</button>
                 </nav>
 
                 <!-- Language Selector -->
@@ -67,24 +67,24 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER (الصفحات المعزولة تماماً بمعرفات جديدة كلياً) -->
+    <!-- MAIN CONTENT CONTAINER (الصفحات المعزولة كلياً) -->
     <main class="min-h-[75vh]">
 
         <!-- 1. PAGE ACCUEIL -->
-        <section id="tab-home" class="hee-page hee-active relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
+        <section id="sec-home" class="hee-page-section hee-page-active relative bg-heeDark text-white py-28 md:py-40 overflow-hidden">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#174B73_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="hero-title text-3xl md:text-6xl font-extrabold mb-6 leading-tight">L'Excellence dans le Béton et le Génie Civil</h1>
                 <p class="hero-desc text-base md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10">Solutions innovantes, durables et de haute qualité pour tous vos projets de construction et d'aménagement en Algérie.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="goToPage('contact')" class="hero-btn-contact bg-heeOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Contactez-nous</button>
-                    <button onclick="goToPage('services')" class="hero-btn-services bg-heeBlue hover:bg-blue-800 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Découvrir nos Services</button>
+                    <button onclick="openPage('contact')" class="hero-btn-contact bg-heeOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Contactez-nous</button>
+                    <button onclick="openPage('services')" class="hero-btn-services bg-heeBlue hover:bg-blue-800 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">Découvrir nos Services</button>
                 </div>
             </div>
         </section>
 
         <!-- 2. PAGE À PROPOS -->
-        <section id="tab-about" class="hee-page py-20 bg-white">
+        <section id="sec-about" class="hee-page-section py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="about-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">À Propos de HEE</h2>
@@ -118,7 +118,7 @@
         </section>
 
         <!-- 3. PAGE SERVICES (الخرسانة أولاً ثم الهوردي) -->
-        <section id="tab-services" class="hee-page py-20 bg-gray-100">
+        <section id="sec-services" class="hee-page-section py-20 bg-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="services-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">Nos Services</h2>
@@ -154,7 +154,7 @@
         </section>
 
         <!-- 4. PAGE PRODUITS (الخرسانة أولاً ثم الهوردي) -->
-        <section id="tab-products" class="hee-page py-20 bg-white">
+        <section id="sec-products" class="hee-page-section py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="products-heading text-3xl md:text-4xl font-bold text-heeDark mb-4">Nos Produits</h2>
@@ -190,7 +190,7 @@
         </section>
 
         <!-- 5. PAGE CONTACT -->
-        <section id="tab-contact" class="hee-page py-20 bg-heeDark text-white">
+        <section id="sec-contact" class="hee-page-section py-20 bg-heeDark text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="contact-heading text-3xl md:text-4xl font-bold mb-4">Contactez-Nous</h2>
@@ -224,17 +224,17 @@
         <p>&copy; 2026 HALIL ENGINEERING ENVIRONNEMENT (HEE). Tous droits réservés.</p>
     </footer>
 
-    <!-- JavaScript Engine for Isolated Pages & Translation -->
+    <!-- JavaScript Engine -->
     <script>
-        function goToPage(pageId) {
-            // إخفاء كل الصفحات تماماً
-            document.querySelectorAll('.hee-page').forEach(page => {
-                page.classList.remove('hee-active');
+        function openPage(pageKey) {
+            // إخفاء جميع الأقسام بالكامل
+            document.querySelectorAll('.hee-page-section').forEach(sec => {
+                sec.classList.remove('hee-page-active');
             });
-            // إظهار الصفحة المستهدفة وحدها
-            const activeTarget = document.getElementById('tab-' + pageId);
-            if (activeTarget) {
-                activeTarget.classList.add('hee-active');
+            // إظهار القسم المطلوب فقط
+            const targetSec = document.getElementById('sec-' + pageKey);
+            if (targetSec) {
+                targetSec.classList.add('hee-page-active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
